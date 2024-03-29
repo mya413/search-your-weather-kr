@@ -1,9 +1,11 @@
-function App() {
+import { ThemeProvider } from "styled-components";
+import theme from "@/styles/theme";
+import Home from "@/pages/Home";
+
+export default function App() {
   return (
-    <div className="App">
-      <h1>Hello, SYW!</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Home />
+    </ThemeProvider>
   );
 }
-
-export default App;
