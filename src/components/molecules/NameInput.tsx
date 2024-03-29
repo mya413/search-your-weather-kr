@@ -7,6 +7,9 @@ export default function NameInput() {
   const MAX_LENGTH = 10;
 
   const inputCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > MAX_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_LENGTH);
+    }
     setInputCount(e.target.value.length);
   };
 
