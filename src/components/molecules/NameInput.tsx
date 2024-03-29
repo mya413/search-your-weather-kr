@@ -30,8 +30,10 @@ export default function NameInput() {
 
 const NameInputStyle = styled.div`
   position: relative;
+  width: 100%;
+
   & > input {
-    width: 400px;
+    width: 100%;
     height: 40px;
     font-size: 12px;
     padding: 0 10px;
@@ -63,15 +65,5 @@ const NameInputStyle = styled.div`
     font-size: 14px;
     color: #86c5ff;
     font-weight: 500;
-  }
-  @media screen and (max-width: 744px) {
-    & > input {
-      width: 300px;
-    }
-  }
-  @media screen and (max-width: 375px) {
-    & > input {
-      width: 250px;
-    }
   }
 `;
