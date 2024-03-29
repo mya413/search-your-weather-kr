@@ -5,17 +5,10 @@ export default function Greeting() {
 }
 
 const GreetingStyle = styled.h2`
-  font-size: 40px;
+  font-size: calc(40px+1vw);
   margin-top: 30px;
   margin-bottom: 60px;
   font-weight: 300;
   text-align: center;
-
-  @media screen and (max-width: 1024px) {
-    font-size: 30px;
-  }
-
-  @media screen and (max-width: 768px) {
-    font-size: 20px;
-  }
+  transition: all 0.3s;
 `;
