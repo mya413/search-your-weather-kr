@@ -1,9 +1,24 @@
 import styled from "styled-components";
 import { FaArrowCircleRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-export default function InputButton() {
+interface InputBtnProps {
+  inputName: string;
+}
+
+export default function InputButton({ inputName }: InputBtnProps) {
+  const navigator = useNavigate();
+
+  const onClickHandler = () => {
+    if (inputName) {
+      navigator("/");
+    } else {
+      alert("이름 또는 닉네임을 입력해주세요!");
+    }
+  };
+
   return (
-    <InputButtonStyle type="button">
+    <InputButtonStyle type="button" onClick={onClickHandler}>
       <FaArrowCircleRight />
     </InputButtonStyle>
   );
