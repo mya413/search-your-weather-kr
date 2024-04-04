@@ -34,4 +34,8 @@ const HomeLogoStyles = styled.div`
   & > img {
     width: 100%;
   }
+
+  @media screen and (max-width: 767px) {
+    margin-left: 30px;
+  }
 `;
