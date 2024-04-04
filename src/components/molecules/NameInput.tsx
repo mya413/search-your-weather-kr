@@ -24,7 +24,6 @@ export default function NameInput() {
       e.preventDefault();
       navigator("/");
       setInputName(e.target.value);
-      console.log(inputName);
     } else if ((e.key === "Enter" || e.key.code === 13) && !inputName) {
       alert("이름 또는 닉네임을 입력해주세요!");
     }
@@ -63,25 +62,6 @@ const NameInputStyle = styled.div`
     border: 1px solid #bbb;
     background-color: #eee;
     outline-color: #86c5ff;
-  }
-
-  & > button {
-    position: absolute;
-    right: 5px;
-    top: 10px;
-
-    &:hover {
-      & > svg {
-        color: #222;
-        transition: all 0.3s;
-      }
-    }
-
-    & > svg {
-      font-size: 20px;
-      color: #bbb;
-      transition: all 0.3s;
-    }
   }
 
   & > label {

@@ -34,7 +34,7 @@ const GreetingStyle = styled.h2`
     font-size: 30px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 20px;
   }
 `;
@@ -50,5 +50,13 @@ const HomeGreetingStyle = styled.h2`
     font-size: 20px;
     font-weight: 600;
     transition: all 0.3s;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+
+    & > span {
+      font-size: 16px;
+    }
   }
 `;

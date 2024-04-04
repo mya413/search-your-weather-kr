@@ -2,12 +2,12 @@ import styled from "styled-components";
 import InputButton from "../atoms/InputButton";
 
 interface SearchInputProps {
-  isVisible: boolean;
+  isToggle: boolean;
 }
 
-export default function SearchInput({ isVisible }: SearchInputProps) {
+export default function SearchInput({ isToggle }: SearchInputProps) {
   return (
-    <SearchInputStyle isVisible={isVisible}>
+    <SearchInputStyle isToggle={isToggle}>
       <label htmlFor="searchInput">
         도시 이름을 영어로 입력할 경우, 정부에서 지정한 영문 주소의 스펠링과
         동일해야 검색이 가능합니다.
@@ -16,7 +16,7 @@ export default function SearchInput({ isVisible }: SearchInputProps) {
         <input
           id="searchInput"
           type="text"
-          placeholder="e.g. Seoul, Incheon, Busan, Jeolla..."
+          placeholder="e.g. Seoul, Incheon, Busan..."
         />
         <InputButton />
       </div>
@@ -29,13 +29,14 @@ const SearchInputStyle = styled.div<SearchInputProps>`
   position: fixed;
   background-color: #fff;
   padding: 40px 30px;
-  top: ${(props) => (props.isVisible ? "-10%" : "10%")};
+  top: ${(props) => (props.isToggle ? "101px" : "-101px")};
   left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  z-index: 1;
 
   & > div {
     width: 70%;
@@ -50,24 +51,6 @@ const SearchInputStyle = styled.div<SearchInputProps>`
       border: 1px solid #bbb;
       background-color: #eee;
       outline-color: #86c5ff;
-    }
-  }
-  & > button {
-    position: absolute;
-    right: 35px;
-    top: 72px;
-
-    &:hover {
-      & > svg {
-        color: #222;
-        transition: all 0.3s;
-      }
-    }
-
-    & > svg {
-      font-size: 20px;
-      color: #bbb;
-      transition: all 0.3s;
     }
   }
 
@@ -85,9 +68,14 @@ const SearchInputStyle = styled.div<SearchInputProps>`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
+    & > div {
+      width: 100%;
+    }
+
     & > label {
-      font-size: 10px;
+      font-size: 12px;
+      line-height: 1.6;
     }
   }
 `;
