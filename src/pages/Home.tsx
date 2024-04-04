@@ -4,26 +4,26 @@ import Greeting from "@/components/atoms/Greeting";
 import SearchToggleButton from "@/components/atoms/SearchToggleButton";
 import { useState } from "react";
 import SearchInput from "@/components/molecules/SearchInput";
+import Card from "@/components/molecules/Card";
+import Map from "@/components/atoms/Map";
 
 export default function Home() {
   const [isToggle, setIsToggle] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isCardOpen, setIsCardOpen] = useState(true);
 
   return (
     <HomeStyle>
       <div>
         <Logo />
         <Greeting />
-        <SearchToggleButton
-          isToggle={isToggle}
-          isVisible={isVisible}
-          setIsToggle={setIsToggle}
-          setIsVisible={setIsVisible}
-        />
+        <SearchToggleButton isToggle={isToggle} setIsToggle={setIsToggle} />
       </div>
-      <SearchInput isVisible={isVisible} />
+      <SearchInput isToggle={isToggle} />
       <div>
-        <h2>SVG 지도</h2>
+        <Map />
+        {isCardOpen && (
+          <Card isCardOpen={isCardOpen} setIsCardOpen={setIsCardOpen} />
+        )}
       </div>
     </HomeStyle>
   );
@@ -33,6 +33,7 @@ const HomeStyle = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   & > div:first-child {
     width: 100%;
@@ -49,13 +50,24 @@ const HomeStyle = styled.div`
   }
 
   & > div:last-child {
+    width: 100%;
     height: 100vh;
     background-color: #eee;
     display: flex;
     justify-content: center;
     align-items: center;
-    & > h2 {
-      font-size: 40px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    & > div:last-child {
+      display: block;
+      position: relative;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    & > div:first-child {
+      justify-content: flex-start;
     }
   }
 `;
