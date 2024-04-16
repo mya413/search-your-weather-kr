@@ -3,10 +3,7 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
-    a{
-        text-decoration: none;
-        color: inherit;
-    }
+
     *{
         box-sizing: border-box;
     }
@@ -19,10 +16,7 @@ const GlobalStyle = createGlobalStyle`
         vertical-align: baseline;
     }
     body{
-        line-height: 1;
         font-family: 'Noto Sans KR', sans-serif;
-        background-color: #F6F9F0;
-        margin-bottom: 100px;
     }
     ol, ul{
         list-style: none;
@@ -31,6 +25,11 @@ const GlobalStyle = createGlobalStyle`
         border: 0;
         background: transparent;
         cursor: pointer;
+        padding: 0;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
     }
 `;
 

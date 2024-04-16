@@ -5,6 +5,11 @@ const theme = {
     lightGrey: "#eee",
     darkGrey: "#bbb",
   },
+
+  size: {
+    large: "40px",
+    small: "20px",
+  },
 };
 
 export default theme;
