@@ -9,7 +9,7 @@ import Map from "@/components/atoms/Map";
 import Api from "@/services/api";
 
 export default function Home() {
-  const [isSearchToggle, setIsSearchToggle] = useState(false);
+  const [$isSearchToggle, setIsSearchToggle] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(true);
   const [inputSearch, setInputSearch] = useState("");
   const [data, setData] = useState(null);
@@ -25,12 +25,12 @@ export default function Home() {
         <Logo />
         <Greeting />
         <SearchToggleButton
-          $isSearchToggle={isSearchToggle}
+          $isSearchToggle={$isSearchToggle}
           setIsSearchToggle={setIsSearchToggle}
         />
       </div>
       <SearchInput
-        $isSearchToggle={isSearchToggle}
+        $isSearchToggle={$isSearchToggle}
         setIsSearchToggle={setIsSearchToggle}
         inputSearch={inputSearch}
         setInputSearch={setInputSearch}

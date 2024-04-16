@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 
 interface SearchToggleProps {
-  isToggle: boolean;
-  setIsToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  $isSearchToggle: boolean;
+  setIsSearchToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SearchToggleButton({
-  isToggle,
-  setIsToggle,
+  $isSearchToggle,
+  setIsSearchToggle,
 }: SearchToggleProps) {
   const toggleHandler = () => {
-    setIsToggle(!isToggle);
+    setIsSearchToggle(!$isSearchToggle);
   };
 
   return (
