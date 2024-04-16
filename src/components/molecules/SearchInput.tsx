@@ -1,35 +1,74 @@
+import { ChangeEventHandler } from "react";
 import styled from "styled-components";
-import InputButton from "../atoms/InputButton";
+import DeleteButton from "../atoms/DeleteButton";
+import { location } from "@/utils/location";
 
 interface SearchInputProps {
-  isToggle: boolean;
+  $isSearchToggle: boolean;
+  setIsSearchToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  inputSearch: string;
+  setInputSearch: React.Dispatch<React.SetStateAction<string>>;
+  locationInfo: any;
+  setLocationInfo: any;
 }
 
-export default function SearchInput({ isToggle }: SearchInputProps) {
+export default function SearchInput({
+  $isSearchToggle,
+  setIsSearchToggle,
+  inputSearch,
+  setInputSearch,
+  setLocationInfo,
+}: SearchInputProps) {
+  const searchInputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const enterKeyHandler = (e: any) => {
+    const titles = [...location].filter((item) =>
+      item.title.includes(inputSearch)
+    );
+
+    if ((e.key === "Enter" || e.key.code === 13) && titles.length !== 0) {
+      setLocationInfo(titles);
+      setIsSearchToggle(false);
+    } else if (
+      (e.key === "Enter" || e.key.code === 13) &&
+      titles.length === 0
+    ) {
+      setInputSearch("");
+      alert("일치하는 도시를 찾을 수 없습니다! 😢");
+    } else if ((e.key === "Enter" || e.key.code === 13) && titles) {
+      setLocationInfo(titles);
+      setIsSearchToggle(false);
+    }
+  };
+
   return (
-    <SearchInputStyle isToggle={isToggle}>
+    <SearchInputStyle $isSearchToggle={$isSearchToggle}>
       <label htmlFor="searchInput">
-        도시 이름을 영어로 입력할 경우, 정부에서 지정한 영문 주소의 스펠링과
-        동일해야 검색이 가능합니다.
+        지도를 클릭하거나 도시 검색을 통해 날씨를 알아볼 수 있어요!
       </label>
       <div>
         <input
           id="searchInput"
           type="text"
-          placeholder="e.g. Seoul, Incheon, Busan..."
+          placeholder="날씨가 궁금한 도시명을 검색해주세요..."
+          onChange={searchInputHandler}
+          onKeyDown={enterKeyHandler}
+          value={inputSearch}
         />
-        <InputButton />
+        <DeleteButton setInputSearch={setInputSearch} />
       </div>
     </SearchInputStyle>
   );
 }
 
-const SearchInputStyle = styled.div<SearchInputProps>`
+const SearchInputStyle = styled.div<{ $isSearchToggle: boolean }>`
   width: 100%;
   position: fixed;
   background-color: #fff;
   padding: 40px 30px;
-  top: ${(props) => (props.isToggle ? "101px" : "-101px")};
+  top: ${(props) => (props.$isSearchToggle ? "101px" : "-101px")};
   left: 0;
   display: flex;
   flex-direction: column;

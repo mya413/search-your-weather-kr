@@ -1,29 +1,54 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "@/components/atoms/Logo";
 import Greeting from "@/components/atoms/Greeting";
 import SearchToggleButton from "@/components/atoms/SearchToggleButton";
-import { useState } from "react";
 import SearchInput from "@/components/molecules/SearchInput";
 import Card from "@/components/molecules/Card";
 import Map from "@/components/atoms/Map";
+import Api from "@/services/api";
 
 export default function Home() {
-  const [isToggle, setIsToggle] = useState(false);
+  const [isSearchToggle, setIsSearchToggle] = useState(false);
   const [isCardOpen, setIsCardOpen] = useState(true);
+  const [inputSearch, setInputSearch] = useState("");
+  const [data, setData] = useState(null);
+  const [locationInfo, setLocationInfo] = useState(null);
+
+  useEffect(() => {
+    Api(setData, locationInfo);
+  }, [locationInfo]);
 
   return (
     <HomeStyle>
       <div>
         <Logo />
         <Greeting />
-        <SearchToggleButton isToggle={isToggle} setIsToggle={setIsToggle} />
+        <SearchToggleButton
+          $isSearchToggle={isSearchToggle}
+          setIsSearchToggle={setIsSearchToggle}
+        />
       </div>
-      <SearchInput isToggle={isToggle} />
+      <SearchInput
+        $isSearchToggle={isSearchToggle}
+        setIsSearchToggle={setIsSearchToggle}
+        inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
+        locationInfo={locationInfo}
+        setLocationInfo={setLocationInfo}
+      />
       <div>
-        <Map />
-        {isCardOpen && (
-          <Card isCardOpen={isCardOpen} setIsCardOpen={setIsCardOpen} />
-        )}
+        <Map setLocationInfo={setLocationInfo} />
+        {locationInfo && isCardOpen ? (
+          <Card
+            isCardOpen={isCardOpen}
+            setIsCardOpen={setIsCardOpen}
+            data={data}
+            locationInfo={locationInfo}
+            setLocationInfo={setLocationInfo}
+            setData={setData}
+          />
+        ) : null}
       </div>
     </HomeStyle>
   );
