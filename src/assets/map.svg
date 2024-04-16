@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlnsAmcharts="http://amcharts.com/ammap" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" width="700" height="700" viewBox="-100 110 700 700">
+<svg xmlns="http://www.w3.org/2000/svg" xmlnsamcharts="http://amcharts.com/ammap" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" width="700" height="700" viewBox="-100 110 700 700">
 	<defs>
 		<style type="text/css">
 			.land
@@ -12,7 +12,7 @@
 				transition: all 0.3s;
 				cursor: pointer;
 			}
-			.land:hover{
+			.land:hover, .active{
 				fill: #86C5FF;
 				box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 				transform: skewY(0.2deg);
@@ -20,7 +20,7 @@
 			}
 		</style>
 
-		<amchartsAmmap projection="mercator" leftLongitude="125.384458" topLatitude="38.612296" rightLongitude="131.873029" bottomLatitude="33.194027"></amchartsAmmap>
+		<amchartsAmmap projection="mercator" leftlongitude="125.384458" toplatitude="38.612296" rightlongitude="131.873029" bottomlatitude="33.194027"></amchartsAmmap>
 
 	</defs>
 	<g>
