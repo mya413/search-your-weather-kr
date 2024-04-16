@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface InputBtnProps {
-  inputName?: string;
+  inputName: string;
 }
 
 export default function InputButton({ inputName }: InputBtnProps) {
-  const path = useLocation().pathname;
   const navigator = useNavigate();
 
-  const onClickHandler = () => {
+  const saveNameHandler = () => {
     if (inputName) {
       navigator("/");
     } else {
@@ -18,15 +17,8 @@ export default function InputButton({ inputName }: InputBtnProps) {
     }
   };
 
-  const searchHandler = () => {
-    console.log("click search button");
-  };
-
   return (
-    <InputButtonStyle
-      type="button"
-      onClick={path === "/" ? searchHandler : onClickHandler}
-    >
+    <InputButtonStyle type="button" onClick={saveNameHandler}>
       <FaArrowCircleRight />
     </InputButtonStyle>
   );
@@ -34,7 +26,7 @@ export default function InputButton({ inputName }: InputBtnProps) {
 
 const InputButtonStyle = styled.button`
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 10px;
 
   &:hover {
