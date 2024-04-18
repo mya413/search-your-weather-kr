@@ -1,7 +1,11 @@
-import { year, month, day } from "@/utils/date";
-import { hours, minutes } from "@/utils/time";
+import { year, month, day, hours, minutes } from "@/utils/date";
+import { locationInfo } from "@/utils/filteredLocation";
+import { data } from "@/utils/filteredDatas";
 
-export default function Api(setFn: any, locationInfo: any) {
+export default function api(
+  setFn: React.Dispatch<React.SetStateAction<data[]>>,
+  locationInfo: locationInfo[]
+) {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const API_URL = process.env.REACT_APP_API_URL;
   const BASE_DATE = year + month + day;
