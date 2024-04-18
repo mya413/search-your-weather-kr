@@ -1,40 +1,46 @@
-import { ReactComponent as MapImage } from "@/assets/map.svg";
 import { MouseEventHandler } from "react";
+import { filteredLocationId } from "@/utils/filteredLocation";
 import styled from "styled-components";
-import { location } from "@/utils/location";
+import { ReactComponent as MapImage } from "@/assets/map.svg";
+import { locationInfo } from "@/utils/filteredLocation";
 
 interface MapProps {
-  setLocationInfo: any;
+  setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  locationInfo: locationInfo[];
+  setLocationInfo: React.Dispatch<React.SetStateAction<locationInfo[]>>;
 }
 
-export default function Map({ setLocationInfo }: MapProps) {
-  const onClickHandler: MouseEventHandler<SVGSVGElement> = (e) => {
-    const element = e.target as SVGPathElement;
-    const clickedElementId = element.id;
-    const isLocationMatched = location.filter(
-      (loc) => loc.id === clickedElementId
-    );
+export default function Map({
+  setIsCardOpen,
+  locationInfo,
+  setLocationInfo,
+}: MapProps) {
+  const mapClickedHandler: MouseEventHandler<SVGSVGElement> = (e) => {
+    const map = e.target as SVGPathElement;
+    const mapId = map.id;
+    const matchedInfo = filteredLocationId(mapId);
 
-    if (isLocationMatched && clickedElementId) {
-      const activeElement = document.querySelector(".active");
+    if (locationInfo && mapId) {
+      const activeMap = document.querySelector(".active");
 
-      element.classList.add("active");
-      setLocationInfo(isLocationMatched);
+      setLocationInfo(matchedInfo);
+      setIsCardOpen(true);
+      map.classList.add("active");
 
-      if (activeElement) {
-        activeElement.classList.remove("active");
+      if (activeMap) {
+        activeMap.classList.remove("active");
       }
     }
   };
 
   return (
     <MapStyles>
-      <MapImage onClick={onClickHandler} />
+      <MapImage onClick={mapClickedHandler} />
     </MapStyles>
   );
 }
 
-const MapStyles = styled.div`
+const MapStyles = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
