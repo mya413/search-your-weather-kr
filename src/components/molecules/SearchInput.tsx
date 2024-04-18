@@ -1,45 +1,43 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, KeyboardEventHandler } from "react";
 import styled from "styled-components";
 import DeleteButton from "../atoms/DeleteButton";
-import { location } from "@/utils/location";
+import { filteredLocationTitle } from "@/utils/filteredLocation";
+import { locationInfo } from "@/utils/filteredLocation";
 
 interface SearchInputProps {
   $isSearchToggle: boolean;
   setIsSearchToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   inputSearch: string;
   setInputSearch: React.Dispatch<React.SetStateAction<string>>;
-  locationInfo: any;
-  setLocationInfo: any;
+  setLocationInfo: React.Dispatch<React.SetStateAction<locationInfo[]>>;
 }
 
 export default function SearchInput({
   $isSearchToggle,
   setIsSearchToggle,
+  setIsCardOpen,
   inputSearch,
   setInputSearch,
   setLocationInfo,
 }: SearchInputProps) {
   const searchInputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputSearch(e.target.value);
+    const newInputValue = e.target.value;
+    setInputSearch(newInputValue);
   };
 
-  const enterKeyHandler = (e: any) => {
-    const titles = [...location].filter((item) =>
-      item.title.includes(inputSearch)
-    );
+  const enterKeyHandler: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    const matchedInfo = filteredLocationTitle(inputSearch);
 
-    if ((e.key === "Enter" || e.key.code === 13) && titles.length !== 0) {
-      setLocationInfo(titles);
+    if (e.nativeEvent.isComposing) return;
+
+    if (e.key === "Enter" && matchedInfo.length !== 0) {
+      setLocationInfo(matchedInfo);
+      setIsCardOpen(true);
       setIsSearchToggle(false);
-    } else if (
-      (e.key === "Enter" || e.key.code === 13) &&
-      titles.length === 0
-    ) {
-      setInputSearch("");
+    } else if (e.key === "Enter" && matchedInfo.length === 0) {
       alert("일치하는 도시를 찾을 수 없습니다! 😢");
-    } else if ((e.key === "Enter" || e.key.code === 13) && titles) {
-      setLocationInfo(titles);
-      setIsSearchToggle(false);
+      setInputSearch("");
     }
   };
 
@@ -63,7 +61,9 @@ export default function SearchInput({
   );
 }
 
-const SearchInputStyle = styled.div<{ $isSearchToggle: boolean }>`
+const SearchInputStyle = styled.section<{
+  $isSearchToggle: boolean;
+}>`
   width: 100%;
   position: fixed;
   background-color: #fff;
